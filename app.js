@@ -44,8 +44,8 @@ con.connect(function(err) {
 
   //insert文にて登録の実行
   //エディタが更新されるたびに実行されるので、１回実行したらコメントアウト or 削除する
-const sql = "INSERT INTO users(name,email) VALUES(?,?)"
-con.query(sql,['jack','jack@test.com'],function(err, result, fields){
+const sql = "INSERT INTO users SET ?"
+con.query(sql,{name:'Tommy', email:'Tommy@test.com'},function(err, result, fields){
 	if (err) throw err;
 	console.log(result)
 })
