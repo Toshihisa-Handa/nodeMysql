@@ -44,11 +44,11 @@ con.connect(function(err) {
 
   //insert文にて登録の実行
   //エディタが更新されるたびに実行されるので、１回実行したらコメントアウト or 削除する
-// const sql = "INSERT INTO users(name,email) VALUES('kevin','kevin@test.com')"
-// con.query(sql,function(err, result, fields){
-// 	if (err) throw err;
-// 	console.log(result)
-// })
+const sql = "INSERT INTO users(name,email) VALUES(?,?)"
+con.query(sql,['jack','jack@test.com'],function(err, result, fields){
+	if (err) throw err;
+	console.log(result)
+})
 
 
 });
