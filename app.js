@@ -4,8 +4,8 @@ const express = require('express')
 const app = express()
 const port = 3000
 const path = require('path')
-const bodyParser = require('body-parser')
-
+const bodyParser = require('body-parser')//body-parserライブラリ取得￥
+const ejs = require('ejs')//ejsライブラリ取得
 
 
 //expressからmysqlの接続
@@ -21,6 +21,8 @@ const con = mysql.createConnection({
 //読み込んだbodyParserをミドルウェアとして設定
 app.use(bodyParser.urlencoded({ extended: true}));
 
+//ejsを利用するための設定
+app,set('view engine', 'ejs');
 
 
 //localhost:3000で呼び出されるルートの定義
