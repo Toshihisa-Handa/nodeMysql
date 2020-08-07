@@ -102,8 +102,9 @@ app.post('/', (req, res) => {
 	con.query(sql,req.body,function(err, result, fields){
 		if (err) throw err;
 		console.log(result);
-		res.send('登録が完了しました');
-
+        // res.send('登録が完了しました');
+        res.redirect('/')
+       //res.send(‘登録が完了しました’)ではなくres.redirect(‘/’)に設定すると”/(ルート)”にリダイレクトされ、追加した行が表示されます。
 	});
 });
 
