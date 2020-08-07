@@ -17,9 +17,9 @@ const con = mysql.createConnection({
 });
 
 //データベース接続
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log('Connected');
+con.connect(function(err) {
+  if (err) throw err;
+  console.log('Connected');
 
 //データベースの作成と接続(この記述でデータベースが作られる。記述後ターミナルでサーバーが更新されるとデータベース不要になるので消す)
 //   con.query('CREATE DATABASE express_db', function(err, result){
@@ -42,12 +42,24 @@ const con = mysql.createConnection({
 //     console.log(result[0].email)
 // });
 
-// });
+  //insert文にて登録の実行
+  //エディタが更新されるたびに実行されるので、１回実行したらコメントアウト or 削除する
+// const sql = "INSERT INTO users(name,email) VALUES('kevin','kevin@test.com')"
+// con.query(sql,function(err, result, fields){
+// 	if (err) throw err;
+// 	console.log(result)
+// })
+
+
+});
 
 //select文で取得したデータをブラウザで表示
 
 
 app.get('/', (request, response) => {
+  
+    
+  //select文にてブラウザ上の表示  
   const sql = 'select * from users'
   con.query(sql, function(err, result, fields){
       if(err)throw err;
