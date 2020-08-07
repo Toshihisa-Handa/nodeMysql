@@ -28,12 +28,19 @@ con.connect(function(err) {
 //   });
 
 //テーブル作成の記述（データベース同様読み込まれると不要になる）
-  const sql ='CREATE TABLE users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255)NOT NULL)';
-  con.query(sql, function(err, result){
-      if(err)throw err;
-      console.log('table created');
-  });
+//   const sql ='CREATE TABLE users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255)NOT NULL)';
+//   con.query(sql, function(err, result){
+//       if(err)throw err;
+//       console.log('table created');
+//   });
 
+//select文でsql取得
+const sql = 'select * from users'
+con.query(sql, function(err, result, fields){
+    if(err)throw err;
+    // console.log(result)
+    console.log(result[0].email)
+});
 
 });
 
