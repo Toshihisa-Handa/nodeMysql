@@ -3,6 +3,8 @@
 const express = require('express')
 const app = express()
 const port = 3000
+const path = require('path')
+const bodyParser = require('body-parser')
 
 
 
@@ -53,18 +55,30 @@ con.connect(function(err) {
 
 });
 
+
 //select文で取得したデータをブラウザで表示
+// app.get('/', (request, response) => {
+//   //select文にてブラウザ上の表示  
+//   const sql = 'select * from users'
+//   con.query(sql, function(err, result, fields){
+//       if(err)throw err;
+//       response.send(result)
+//   });
+
+// })
+
+//読み込んだbodyParserをミドルウェアとして設定
+app.use(bodyParser.urlencoded({ extended: true}));
 
 
-app.get('/', (request, response) => {
-  
+//localhost:3000で呼び出されるルートの定義
+//sendFileメソッドを使用して、html/form.htmlファイルを”/(ルート)”にアクセスしてきたブラウザに渡しています。
+app.get('/', (req, res) =>
+    res.sendFile(path.join(__dirname,'html/form.html')))
+    // res.sendFile(path.join(`${__dirname}/html/form.html`)))↑と同じ意味
     
-  //select文にてブラウザ上の表示  
-  const sql = 'select * from users'
-  con.query(sql, function(err, result, fields){
-      if(err)throw err;
-      response.send(result)
-  });
+    //req, resにインプットタグから送信されたデータが入っていて、送信された内容がreq.bodyで表示される
+app.post('', (req, res) => res.send(req.body))
 
-})
+//サーバーの接続状態の確認用コンソール
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
