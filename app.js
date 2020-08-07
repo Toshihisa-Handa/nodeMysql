@@ -17,9 +17,9 @@ const con = mysql.createConnection({
 });
 
 //データベース接続
-con.connect(function(err) {
-  if (err) throw err;
-  console.log('Connected');
+// con.connect(function(err) {
+//   if (err) throw err;
+//   console.log('Connected');
 
 //データベースの作成と接続(この記述でデータベースが作られる。記述後ターミナルでサーバーが更新されるとデータベース不要になるので消す)
 //   con.query('CREATE DATABASE express_db', function(err, result){
@@ -35,14 +35,24 @@ con.connect(function(err) {
 //   });
 
 //select文でsql取得
-const sql = 'select * from users'
-con.query(sql, function(err, result, fields){
-    if(err)throw err;
-    // console.log(result)
-    console.log(result[0].email)
-});
+// const sql = 'select * from users'
+// con.query(sql, function(err, result, fields){
+//     if(err)throw err;
+//     // console.log(result)
+//     console.log(result[0].email)
+// });
 
-});
+// });
 
-app.get('/', (req, res) => res.send('Hello Worldaa!'))
+//select文で取得したデータをブラウザで表示
+
+
+app.get('/', (request, response) => {
+  const sql = 'select * from users'
+  con.query(sql, function(err, result, fields){
+      if(err)throw err;
+      response.send(result)
+  });
+
+})
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
