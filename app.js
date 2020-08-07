@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.set('view engine', 'ejs');
 
 //localhost:3000で呼び出されるルートの定義
-//ejsファイルの設定（SELECT文：表示の記述）
+//（SELECT文：表示の記述）ejsファイルの設定
 app.get('/', (req, res) => {
     const sql = 'select * from users';
     con.query(sql, function (err, result, fields){
@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
     });
 });
 
-//データ登録フォームからpostされた値を登録する処理（INSERT文：登録の記述）
+//（INSERT文：登録の記述）データ登録フォームからpostされた値を登録する処理
 app.post('/', (req, res) => { //req, resにインプットタグから送信されたデータが入っていて、送信された内容がreq.bodyで登録される
 	const sql = "INSERT INTO users SET ?"
 	con.query(sql,req.body,function(err, result, fields){
@@ -52,6 +52,32 @@ app.get('/create', (req, res) =>
     res.sendFile(path.join(__dirname,'html/form.html')))
     // res.sendFile(path.join(`${__dirname}/html/form.html`)))↑と同じ意味
     
+
+//（UPDATE文：更新機能の記述）UPDATEの記述はほぼINSERTと同じ。
+    app.post('/update/:id', (req, res) => { //req, resにインプットタグから送信されたデータが入っていて、送信された内容がreq.bodyで登録される
+        const sql = "UPDATE users SET ? WHERE id = " + req.params.id;
+        con.query(sql,req.body,function(err, result, fields){
+            if (err) throw err;
+            console.log(result);
+            res.redirect('/')
+        });
+    });
+
+
+//更新フォームへの移動文（削除機能の記述とほぼ同じ）
+app.get('/edit/:id',(req,res)=>{
+    const sql = 'SELECT * FROM users WHERE id = ?';
+    con.query(sql,[req.params.id],function(err, result, fields){
+        if(err)throw err;
+        res.render('edit', {user: result});
+    });
+});
+
+
+
+
+
+//（DELETE文：削除機能の記述）
 app.get('/delete/:id',(req,res)=>{
     const sql = 'DELETE FROM users WHERE id = ?';
     con.query(sql,[req.params.id],function(err, result, fields){
