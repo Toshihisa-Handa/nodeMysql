@@ -20,18 +20,21 @@ const con = mysql.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   console.log('Connected');
-  //データベースの作成と接続(この記述でデータベースが作られる。記述後ターミナルでサーバーが更新されるとデータベース不要になるので消す)
+
+//データベースの作成と接続(この記述でデータベースが作られる。記述後ターミナルでサーバーが更新されるとデータベース不要になるので消す)
 //   con.query('CREATE DATABASE express_db', function(err, result){
 //       if(err)throw err;
 //       console.log('database createde')
 //   });
 
 //テーブル作成の記述（データベース同様読み込まれると不要になる）
-  const sql ='CREATE TABLE users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL)';
+  const sql ='CREATE TABLE users (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, name VARCHAR(255) NOT NULL, email VARCHAR(255)NOT NULL)';
   con.query(sql, function(err, result){
       if(err)throw err;
       console.log('table created');
   });
+
+
 });
 
 app.get('/', (req, res) => res.send('Hello Worldaa!'))
